@@ -1,3 +1,31 @@
+I INTERUPT THIS README TO BRING YOU THIS IMPORTANT ANNOUNCEMENT:
+
+"DUCK HUNT" UGLY PROOF OF CONCEPT
+=================================
+
+Enter the mypy directory and run this:
+
+```
+  $ PYTHONPATH=$PYTHONPATH:`pwd` python3 `pwd`/scripts/mypy  example.py
+```
+
+Though example.py has no explicit type annotations in the source file, the
+horrible hack I've applied will apply the types later, producing this:
+
+```
+  example.py, line 10: Argument 1 to "do_something" has incompatible type "int"
+```
+
+Ta-dah!
+
+It would be amazing if MyPy had a fully featured way to apply types to
+pre-existing code which lacked type annotations (such as codebases compatable
+with both Python 2 and 3).
+
+And now, back to our regularly scheduled readme...
+
+
+
 Mypy Readme
 ===========
 
@@ -82,7 +110,7 @@ In Windows, the script is generally installed in
 \Python33 with your Python installation path):
 
     C:\>\Python33\python \Python33\Scripts\mypy PROGRAM
-    
+
 Mypy programs are valid Python programs, so you can use the Python
 interpreter to run them without type checking:
 
@@ -118,7 +146,7 @@ right now (but all of these will improve):
  - properties with setters not supported
  - class methods not supported
  - relative imports not supported
- - tuples not well-supported as immutable lists 
+ - tuples not well-supported as immutable lists
  - somewhat limited operator overloading
  - only a subset of Python standard library modules are supported, and some
    only partially

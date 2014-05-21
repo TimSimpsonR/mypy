@@ -399,6 +399,9 @@ class Parser:
             self.errors.push_function(name)
 
             (args, init, kinds, typ, arg_repr) = self.parse_args()
+            from mypy import posttype
+            (name, args, init, kinds, typ, arg_repr) = posttype.mod_func(
+                name, args, init, kinds, typ, arg_repr)
 
         except ParseError:
             if not isinstance(self.current(), Break):
