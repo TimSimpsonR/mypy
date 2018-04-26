@@ -1461,3 +1461,34 @@ and non-required keys, such as ``Movie`` above, will only be compatible with
 another TypedDict if all required keys in the other TypedDict are required keys in the
 first TypedDict, and all non-required keys of the other TypedDict are also non-required keys
 in the first TypedDict.
+
+Using TypedDict with generic mapping types
+------------------------------------------
+
+If you pass a TypedDict value to a function that excepts ``Dict[Any, Any]`` MyPy will raise an error, which may be surprising:
+
+.. code-block:: python
+
+   class Movie(TypedDict):
+       name: str
+       year: int
+
+   def print_items(arg: dict) -> None:
+       for k,v in arg.items():
+           print(f'{k}={v}')
+
+   movie = Move(name='The Meaning of Life', year=1989)
+
+   print_items(movie)  # Type check error: expected "Dict[Any, Any]"
+
+This is due to invariance. Replacing ``dict`` with ``Mapping`` allows the call to work without a cast:
+
+.. code-block:: python
+
+   def print_items(arg: Mapping) -> None:
+       for k,v in arg.items():
+           print(f'{k}={v}')
+
+   movie = Move(name='The Meaning of Life', year=1989)
+
+   print_items(movie)  # works
